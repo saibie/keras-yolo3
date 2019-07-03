@@ -72,10 +72,15 @@ class YOLO(object):
             self.yolo_model = tiny_yolo_body(Input(shape=(None,None,3)), num_anchors//2, num_classes) \
                 if is_tiny_version else yolo_body(Input(shape=(None,None,3)), num_anchors//3, num_classes)
             self.yolo_model.load_weights(self.model_path) # make sure model, anchors and classes match
-        else:
-            assert self.yolo_model.layers[-1].output_shape[-1] == \
-                num_anchors/len(self.yolo_model.output) * (num_classes + 5), \
-                'Mismatch between model and given anchor and class sizes'
+#         else:
+#             임의 수정
+#             print(self.yolo_model.output.shape)
+#             print(K.shape(self.yolo_model.output))
+#             print(K.shape(self.yolo_model.output).eval(session=self.sess))
+#             임의 수정
+#             assert self.yolo_model.layers[-1].output_shape[-1] == \
+#                 num_anchors/self.yolo_model.output.shape[0] * (num_classes + 5), \
+#                 'Mismatch between model and given anchor and class sizes'
 
         print('{} model, anchors, and classes loaded.'.format(model_path))
 
